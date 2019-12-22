@@ -59,12 +59,14 @@
                {
                    isDown = true;
                }
-               ret = write(data_socket, strIn, strlen(strIn) + 1);
 
-               fprintf(stdout, "stdout: %s\n", strIn);
+
+               ret = send(data_socket, strIn, strlen(strIn) + 1, 0);
+
+               fprintf(stdout, "Client sent: %s\n", strIn);
 
                if (ret == -1) {
-                   perror("write");
+                   perror("send");
                    break;
                }
            }
@@ -74,9 +76,9 @@
            if(!isDown)
            {
                strcpy (buffer, "END");
-               ret = write(data_socket, buffer, strlen(buffer) + 1);
+               ret = send(data_socket, buffer, strlen(buffer) + 1, 0);
                if (ret == -1) {
-                   perror("write");
+                   perror("send");
                    exit(EXIT_FAILURE);
                }
            }

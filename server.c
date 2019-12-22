@@ -84,12 +84,15 @@
                for (;;) {
 
                    /* Wait for next data packet. */
+                   fprintf(stdout, "Server blocking, wait for input...\n");
 
-                   ret = read(data_socket, buffer, BUFFER_SIZE);
+                   ret = recv(data_socket, buffer, BUFFER_SIZE, 0);
                    if (ret == -1) {
-                       perror("read");
+                       perror("recv");
                        exit(EXIT_FAILURE);
                    }
+
+                   fprintf(stdout, "Server recv %s\n", buffer);
 
                    /* Ensure buffer is 0-terminated. */
 
