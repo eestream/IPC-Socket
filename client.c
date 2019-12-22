@@ -52,12 +52,17 @@
            /* Send arguments. */
 
            bool isDown = false;
-           for (i = 1; i < argc; ++i) {
-               if(!strncmp(argv[i], "DOWN", strlen(argv[i])))
+           char strIn[10] = {0};
+           while(!isDown){
+               fscanf(stdin, "%s", strIn);
+               if(!strncmp(strIn, "DOWN", strlen(strIn)))
                {
                    isDown = true;
                }
-               ret = write(data_socket, argv[i], strlen(argv[i]) + 1);
+               ret = write(data_socket, strIn, strlen(strIn) + 1);
+
+               fprintf(stdout, "stdout: %s\n", strIn);
+
                if (ret == -1) {
                    perror("write");
                    break;
